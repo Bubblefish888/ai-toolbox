@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI工具箱 - 新媒体人效率工具</title>
+<meta name="description" content="免费AI工具合集：小红书标题生成、周报自动写、简历优化、Emoji文案、配色方案。新媒体人必备效率工具。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+.header{background:linear-gradient(135deg,#6366f1,#8b5cf6,#a855f7);padding:40px 20px;text-align:center}
+.header h1{font-size:2.5em;margin-bottom:10px}
+.header p{opacity:.9;font-size:1.1em}
+.ads-banner{background:#1e293b;text-align:center;padding:12px;color:#94a3b8;font-size:.85em;border-bottom:1px solid #334155}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;padding:30px;max-width:1400px;margin:0 auto}
+.tool-card{background:#1e293b;border-radius:16px;padding:24px;border:1px solid #334155;transition:all .3s}
+.tool-card:hover{border-color:#6366f1;transform:translateY(-2px)}
+.tool-card h3{font-size:1.3em;margin-bottom:8px;color:#a5b4fc}
+.tool-card .desc{color:#94a3b8;margin-bottom:16px;font-size:.9em;line-height:1.6}
+.tool-card textarea,.tool-card input,.tool-card select{width:100%;padding:12px;border-radius:8px;border:1px solid #475569;background:#0f172a;color:#e2e8f0;font-size:.9em;margin-bottom:12px;resize:vertical;font-family:inherit}
+.tool-card textarea{min-height:100px}
+.tool-card button{width:100%;padding:12px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border:none;border-radius:8px;color:#fff;font-size:1em;font-weight:600;cursor:pointer;transition:opacity .3s}
+.tool-card button:hover{opacity:.9}
+.tool-card .result{margin-top:12px;padding:12px;background:#0f172a;border-radius:8px;font-size:.9em;line-height:1.8;white-space:pre-wrap;min-height:60px;border:1px solid #334155}
+.tool-card .result:empty{display:none}
+.footer{text-align:center;padding:40px;color:#64748b;font-size:.85em}
+.footer a{color:#a5b4fc;text-decoration:none}
+.badge{display:inline-block;padding:3px 8px;border-radius:4px;font-size:.75em;margin-left:8px}
+.badge-free{background:#22c55e20;color:#4ade80}
+.badge-hot{background:#ef444420;color:#f87171}
+.share-section{text-align:center;padding:10px 30px}
+.share-btn{background:#6366f1;color:#fff;border:none;padding:12px 30px;border-radius:8px;font-size:1em;cursor:pointer;margin:5px}
+.share-btn:hover{opacity:.9}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🛠️ AI 工具箱</h1>
+  <p>新媒体人效率工具合集 · 免费使用 · 无需注册</p>
+</div>
+
+<div class="ads-banner">
+  📢 需要定制开发？Python脚本 · 自动化工具 · 网页制作 → 闲鱼搜「AI编程代写」或联系开发者
+</div>
+
+<div class="tools-grid">
+
+  <!-- 工具1: 小红书标题生成器 -->
+  <div class="tool-card">
+    <h3>📕 小红书爆款标题生成 <span class="badge badge-hot">热门</span></h3>
+    <p class="desc">输入主题，一键生成5个不同风格的爆款标题。含数字型、痛点型、反常识型。</p>
+    <input type="text" id="xhs-topic" placeholder="输入主题，如：早起打卡、AI副业">
+    <select id="xhs-style">
+      <option value="all">全部风格</option>
+      <option value="number">数字+结果型</option>
+      <option value="pain">痛点+解决型</option>
+      <option value="counter">反常识型</option>
+      <option value="identity">身份标签型</option>
+      <option value="curiosity">好奇心缺口型</option>
+    </select>
+    <button onclick="generateXHSTitles()">⚡ 生成标题</button>
+    <div class="result" id="xhs-result"></div>
+  </div>
+
+  <!-- 工具2: 周报自动生成 -->
+  <div class="tool-card">
+    <h3>📊 周报自动生成器 <span class="badge badge-free">免费</span></h3>
+    <p class="desc">输入本周工作要点，自动生成结构化的专业周报。支持结果导向和数据驱动两种风格。</p>
+    <textarea id="weekly-notes" placeholder="输入本周工作要点，每行一条：
+完成了用户增长方案
+修复了3个线上Bug
+组织了团队培训
+协助市场部做了竞品分析"></textarea>
+    <select id="weekly-style">
+      <option value="result">结果导向型（大厂风）</option>
+      <option value="data">数据驱动型（量化成果）</option>
+      <option value="story">故事叙述型（适合汇报）</option>
+    </select>
+    <button onclick="generateWeeklyReport()">📝 生成周报</button>
+    <div class="result" id="weekly-result"></div>
+  </div>
+
+  <!-- 工具3: Emoji文案助手 -->
+  <div class="tool-card">
+    <h3>😎 Emoji 文案助手</h3>
+    <p class="desc">输入一段文字，自动在合适位置插入 emoji，让文案更活泼。适合小红书/朋友圈。</p>
+    <textarea id="emoji-text" placeholder="输入你想加emoji的文字：
+今天分享一个超实用的AI技巧
+学会之后效率直接翻倍
+赶紧收藏起来"></textarea>
+    <button onclick="addEmojis()">✨ 添加 Emoji</button>
+    <div class="result" id="emoji-result"></div>
+  </div>
+
+  <!-- 工具4: 配色方案生成器 -->
+  <div class="tool-card">
+    <h3>🎨 配色方案生成器</h3>
+    <p class="desc">随机生成5组小红书封面/PPT配色方案。每组包含主色+辅色+强调色，附色号。</p>
+    <select id="palette-style">
+      <option value="trendy">小红书爆款风（高饱和）</option>
+      <option value="minimal">极简莫兰迪</option>
+      <option value="tech">科技赛博风</option>
+      <option value="warm">温暖治愈风</option>
+    </select>
+    <button onclick="generatePalette()">🎯 生成配色</button>
+    <div class="result" id="palette-result"></div>
+  </div>
+
+  <!-- 工具5: 简历关键词优化 -->
+  <div class="tool-card">
+    <h3>💼 简历关键词优化器</h3>
+    <p class="desc">输入你的工作描述，自动优化为更有冲击力的简历语言，突出量化成果。</p>
+    <textarea id="resume-input" placeholder="输入原始工作描述：
+负责公司公众号运营
+管理团队日常事务
+做了市场调研报告"></textarea>
+    <select id="resume-style">
+      <option value="star">STAR法则（面试最爱）</option>
+      <option value="data">数据量化型</option>
+      <option value="action">行动导向型</option>
+    </select>
+    <button onclick="optimizeResume()">🚀 优化简历</button>
+    <div class="result" id="resume-result"></div>
+  </div>
+
+  <!-- 工具6: 内容选题日历 -->
+  <div class="tool-card">
+    <h3>📅 一周选题日历</h3>
+    <p class="desc">输入账号定位，自动生成一周内容选题计划。覆盖蹭热点+干货+互动。</p>
+    <input type="text" id="content-niche" placeholder="输入账号定位，如：AI工具测评、职场成长">
+    <button onclick="generateContentCalendar()">📋 生成选题</button>
+    <div class="result" id="calendar-result"></div>
+  </div>
+
+</div>
+
+<div class="share-section">
+  <p style="margin-bottom:12px;color:#94a3b8">觉得好用？分享给朋友 👇</p>
+  <button class="share-btn" onclick="copyLink()">📋 复制链接分享</button>
+</div>
+
+<div class="footer">
+  <p>🚀 需要定制开发？闲鱼搜索「AI编程代写」· Python脚本 · 自动化工具 · 网页制作</p>
+  <p style="margin-top:12px">© 2026 AI工具箱 | 免费使用 | <a href="#" onclick="alert('闲鱼搜索：AI编程代写')">联系开发者</a></p>
+</div>
+
+<script>
+// ============ 工具1: 小红书标题生成 ============
+const titleTemplates = {
+  number: [
+    "{topic}的{num}个方法，第{num2}个太绝了",
+    "做了{num}年{topic}，这{num2}个技巧最实用",
+    "{topic}保姆级教程：{num}步搞定",
+    "关于{topic}，这{num}个真相你必须知道",
+    "{num}个{topic}工具，最后一个免费",
+  ],
+  pain: [
+    "还在为{topic}头疼？试试这个方法",
+    "别再做无效{topic}了，真正有用的是这个",
+    "做了3年{topic}才明白，以前都白做了",
+    "{topic}效率低？可能是你方法不对",
+    "99%的人{topic}都做错了，正确姿势在这里",
+  ],
+  counter: [
+    "你可能会讨厌这个{topic}方法，但它真的有效",
+    "{topic}最好的方法，恰恰是你想不到的",
+    "关于{topic}，我要说点你不爱听的话",
+    "为什么你{topic}那么努力，却不如别人",
+    "做{topic}越久，越发现简单才是王道",
+  ],
+  identity: [
+    "{topic}人进！这份清单请收好",
+    "如果你也在做{topic}，这5个建议能救你",
+    "给{topic}新手的良心建议（少走弯路版）",
+    "{topic}三年玩家的经验分享",
+    "所有{topic}人都该知道的一个真相",
+  ],
+  curiosity: [
+    "我{topic}的秘密武器，今天公开了",
+    "偷偷告诉你，高手都是这样{topic}的",
+    "一个月前我开始{topic}，变化太大了",
+    "{topic}圈不愿公开的这个方法",
+    "原来{topic}可以这么简单！之前都没人告诉我",
+  ]
+}
+
+function generateXHSTitles() {
+  const topic = document.getElementById('xhs-topic').value.trim() || 'AI副业'
+  const style = document.getElementById('xhs-style').value
+  const num = Math.floor(Math.random()*8)+3
+  const num2 = Math.floor(Math.random()*8)+3
+
+  let templates = []
+  if (style === 'all') {
+    Object.values(titleTemplates).forEach(t => templates.push(...t))
+  } else {
+    templates = titleTemplates[style] || titleTemplates.number
+  }
+
+  const shuffled = templates.sort(() => Math.random() - 0.5).slice(0, 5)
+  const result = shuffled.map(t =>
+    t.replace(/\{topic\}/g, topic)
+     .replace(/\{num\}/g, num)
+     .replace(/\{num2\}/g, num2)
+  )
+
+  const styleLabels = {number:'数字型',pain:'痛点型',counter:'反常识型',identity:'身份型',curiosity:'好奇型'}
+  document.getElementById('xhs-result').innerHTML = result.map((t,i) =>
+    `🔥 ${t}\n   <span style="color:#94a3b8;font-size:.8em">风格：${styleLabels[Object.keys(titleTemplates)[i]] || '综合'}</span>`
+  ).join('\n\n')
+}
+
+// ============ 工具2: 周报生成 ============
+function generateWeeklyReport() {
+  const notes = document.getElementById('weekly-notes').value.trim()
+  const style = document.getElementById('weekly-style').value
+
+  if (!notes) {
+    document.getElementById('weekly-result').textContent = '⚠️ 请先输入本周工作要点'
+    return
+  }
+
+  const items = notes.split('\n').filter(l => l.trim())
+  const date = new Date()
+  const monday = new Date(date.setDate(date.getDate()-date.getDay()+1))
+  const friday = new Date(date.setDate(date.getDate()+4))
+
+  const fmt = d => `${d.getMonth()+1}/${d.getDate()}`
+
+  let report = `📊 周报 | ${fmt(monday)} - ${fmt(friday)}\n${'─'.repeat(40)}\n\n`
+
+  if (style === 'result') {
+    report += `🎯 本周核心产出：\n\n`
+    items.forEach((item, i) => {
+      report += `${i+1}. ✅ 完成了「${item}」，实现了预期目标\n`
+    })
+    report += `\n💡 关键突破：本周在${items[0] || '核心工作'}方面取得重要进展\n`
+    report += `📌 下周重点：继续深化${items[0] || '当前方向'}，优化执行效率\n`
+    report += `⚠️ 需要支持：[请填写需要的资源或协助]`
+  } else if (style === 'data') {
+    report += `📈 本周数据概览：\n\n`
+    items.forEach((item, i) => {
+      const pct = Math.floor(Math.random()*40)+80
+      report += `${i+1}. ${item}
+   → 完成度 ${pct}% | 投入工时 ${Math.floor(Math.random()*8)+4}h | 影响范围：${['团队','部门','公司'][i%3]}级\n\n`
+    })
+    report += `\n📊 本周关键指标：任务完成率 ${Math.floor(Math.random()*20)+85}%，较上周提升 ${Math.floor(Math.random()*10)+3}%`
+  } else {
+    report += `📖 本周回顾：\n\n`
+    items.forEach((item, i) => {
+      const challenges = ['遇到了一些意料之外的困难，但通过调整策略顺利解决','团队协作非常顺畅，效率超出预期','这个任务让我学到了新的方法论','虽然过程曲折，但最终结果令人满意']
+      report += `${i+1}. 「${item}」—— ${challenges[i%challenges.length]}\n\n`
+    })
+    report += `\n🔮 下周展望：保持势头，专注核心目标`
+  }
+
+  document.getElementById('weekly-result').textContent = report
+}
+
+// ============ 工具3: Emoji文案 ============
+function addEmojis() {
+  const text = document.getElementById('emoji-text').value.trim()
+  if (!text) {
+    document.getElementById('emoji-result').textContent = '⚠️ 请输入文字'
+    return
+  }
+
+  const emojiMap = {
+    '技巧': '💡', '方法': '🔧', '效率': '⚡', '收藏': '⭐',
+    '分享': '🤝', '建议': '💬', '工具': '🛠️', '免费': '🎁',
+    '实用': '✅', '简单': '👌', '真的': '💯', '重要': '❗',
+    '注意': '⚠️', '推荐': '👍', '好用': '🔥', '必备': '💎',
+    '学习': '📚', '工作': '💼', '生活': '🌈', '开心': '😊',
+    '惊喜': '🎉', '加油': '💪', '感谢': '🙏', '喜欢': '❤️',
+    '开始': '🚀', '完成': '✅', '目标': '🎯', '创意': '✨',
+    '数据': '📊', '分析': '🔍', '设计': '🎨', '写作': '✍️',
+    '运营': '📱', '营销': '📢', '赚钱': '💰', '副业': '💸',
+  }
+
+  let result = text.split('\n').map(line => {
+    let decorated = line
+    // 在关键词前加emoji
+    for (const [keyword, emoji] of Object.entries(emojiMap)) {
+      if (line.includes(keyword) && !line.match(new RegExp(`[${emoji}]`))) {
+        decorated = decorated.replace(keyword, `${emoji} ${keyword}`)
+        break // 每行只加一个
+      }
+    }
+    // 如果没有匹配到任何关键词，行首随机加
+    if (decorated === line && line.length > 0) {
+      const randomEmojis = ['💡','✨','🔥','📌','👉','✅','💪','🎯']
+      decorated = `${randomEmojis[Math.floor(Math.random()*randomEmojis.length)]} ${line}`
+    }
+    return decorated
+  }).join('\n')
+
+  document.getElementById('emoji-result').textContent = result
+}
+
+// ============ 工具4: 配色方案 ============
+const palettes = {
+  trendy: [
+    {name:'小红书爆款红',primary:'#FF2442',secondary:'#FFB6C1',accent:'#FFD700',bg:'#FFF5F5'},
+    {name:'高饱和紫',primary:'#8B5CF6',secondary:'#C4B5FD',accent:'#F59E0B',bg:'#F5F3FF'},
+    {name:'荧光绿',primary:'#22C55E',secondary:'#BBF7D0',accent:'#0284C7',bg:'#F0FDF4'},
+    {name:'暖橙',primary:'#F97316',secondary:'#FED7AA',accent:'#7C3AED',bg:'#FFF7ED'},
+    {name:'电光蓝',primary:'#2563EB',secondary:'#BFDBFE',accent:'#F97316',bg:'#EFF6FF'},
+  ],
+  minimal: [
+    {name:'莫兰迪灰粉',primary:'#C4A59D',secondary:'#E8D5CB',accent:'#8B7E74',bg:'#FAF7F5'},
+    {name:'雾霾蓝',primary:'#9CA3AF',secondary:'#D1D5DB',accent:'#6B7280',bg:'#F9FAFB'},
+    {name:'奶茶色',primary:'#D4A574',secondary:'#F5E6D3',accent:'#8B6914',bg:'#FFFAF5'},
+    {name:'鼠尾草绿',primary:'#9CAF88',secondary:'#D4DDC7',accent:'#6B7F5E',bg:'#F7F9F5'},
+    {name:'烟紫',primary:'#A78BFA',secondary:'#DDD6FE',accent:'#6366F1',bg:'#F8F7FF'},
+  ],
+  tech: [
+    {name:'赛博朋克',primary:'#FF00FF',secondary:'#00FFFF',accent:'#FFFF00',bg:'#0A0A1A'},
+    {name:'暗夜模式',primary:'#10B981',secondary:'#064E3B',accent:'#34D399',bg:'#0F172A'},
+    {name:'数据蓝',primary:'#3B82F6',secondary:'#1E3A5F',accent:'#60A5FA',bg:'#0B1A2E'},
+    {name:'霓虹紫',primary:'#A855F7',secondary:'#3B0764',accent:'#C084FC',bg:'#1A0A2E'},
+    {name:'终端绿',primary:'#00FF41',secondary:'#003B00',accent:'#00CC33',bg:'#0D1F0D'},
+  ],
+  warm: [
+    {name:'日落橘',primary:'#FB923C',secondary:'#FED7AA',accent:'#EA580C',bg:'#FFF7ED'},
+    {name:'春日粉',primary:'#F472B6',secondary:'#FCE7F3',accent:'#BE185D',bg:'#FFF5F7'},
+    {name:'大地棕',primary:'#A16207',secondary:'#FDE68A',accent:'#713F12',bg:'#FFFCF0'},
+    {name:'森林绿',primary:'#4ADE80',secondary:'#DCFCE7',accent:'#166534',bg:'#F0FDF4'},
+    {name:'天空蓝',primary:'#7DD3FC',secondary:'#E0F2FE',accent:'#0369A1',bg:'#F0F9FF'},
+  ]
+}
+
+function generatePalette() {
+  const style = document.getElementById('palette-style').value
+  const colors = palettes[style] || palettes.trendy
+  const shuffled = colors.sort(() => Math.random() - 0.5).slice(0, 5)
+
+  document.getElementById('palette-result').innerHTML = shuffled.map(c =>
+    `<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <span style="background:${c.primary};width:32px;height:32px;border-radius:6px;display:inline-block"></span>
+      <span style="background:${c.secondary};width:32px;height:32px;border-radius:6px;display:inline-block"></span>
+      <span style="background:${c.accent};width:32px;height:32px;border-radius:6px;display:inline-block"></span>
+      <span style="font-size:.85em"><b>${c.name}</b> · 主${c.primary} 辅${c.secondary} 强调${c.accent}</span>
+    </div>`
+  ).join('')
+}
+
+// ============ 工具5: 简历优化 ============
+function optimizeResume() {
+  const input = document.getElementById('resume-input').value.trim()
+  const style = document.getElementById('resume-style').value
+
+  if (!input) {
+    document.getElementById('resume-result').textContent = '⚠️ 请输入工作描述'
+    return
+  }
+
+  const items = input.split('\n').filter(l => l.trim())
+  const actionVerbs = ['主导','搭建','推动','设计','优化','构建','统筹','打造','升级','重构','落地','驱动']
+  const metrics = ['效率提升30%','覆盖用户10万+','节省成本20万','团队产出翻倍','ROI提升50%','满意度提升至95%']
+
+  let result = ''
+
+  if (style === 'star') {
+    result = '📋 STAR法则优化版：\n\n'
+    items.forEach((item, i) => {
+      const verb = actionVerbs[i % actionVerbs.length]
+      const metric = metrics[i % metrics.length]
+      result += `${i+1}. **${verb}了${item.replace(/^负责|^管理|^做了?/g,'')}**
+   S-背景：公司业务快速发展，原有流程已无法满足需求
+   T-任务：${verb}${item.replace(/^负责|^管理|^做了?/g,'')}体系
+   A-行动：从0到1制定方案，协调跨部门资源，分阶段推进落地
+   R-结果：${metric}，获得管理层高度认可\n\n`
+    })
+  } else if (style === 'data') {
+    result = '📊 数据量化版：\n\n'
+    items.forEach((item, i) => {
+      const verb = actionVerbs[i % actionVerbs.length]
+      const metric = metrics[i % metrics.length]
+      result += `${i+1}. ${verb}${item.replace(/^负责|^管理|^做了?/g,'')}，${metric}
+   关键动作：流程标准化 + 工具自动化 + 效果可量化\n\n`
+    })
+  } else {
+    result = '⚡ 行动导向版：\n\n'
+    items.forEach((item, i) => {
+      const verb = actionVerbs[i % actionVerbs.length]
+      result += `${i+1}. ${verb}${item.replace(/^负责|^管理|^做了?/g,'')}体系
+   → 输出：标准化流程文档 + 自动化工具 + 培训材料
+   → 影响：团队整体效率显著提升\n\n`
+    })
+  }
+
+  document.getElementById('resume-result').textContent = result
+}
+
+// ============ 工具6: 选题日历 ============
+function generateContentCalendar() {
+  const niche = document.getElementById('content-niche').value.trim() || 'AI工具'
+
+  const days = ['周一','周二','周三','周四','周五','周六','周日']
+  const types = [
+    {type:'🔥 蹭热点',templates:[
+      `「最近XX事件」跟${niche}有什么关系？深度解读`,
+      `${niche}圈都在讨论的这个热点，我的观点是`,
+      `借着热搜聊聊${niche}人该知道的事`,
+    ]},
+    {type:'📚 深度干货',templates:[
+      `${niche}完整指南：从入门到精通`,
+      `${niche}的5个底层逻辑，彻底讲清楚`,
+      `我做${niche}总结的10条实战经验`,
+    ]},
+    {type:'💭 观点表达',templates:[
+      `关于${niche}，我想说点不一样的观点`,
+      `${niche}行业正在发生的变化，你可能还没注意到`,
+      `为什么我建议每个${niche}人都应该关注AI`,
+    ]},
+    {type:'📖 干货教程',templates:[
+      `${niche}实操教程：一步一步教你做XX`,
+      `${niche}新手最常见的3个错误及解决方案`,
+      `${niche}高效工作流分享，省下50%时间`,
+    ]},
+    {type:'😂 轻松互动',templates:[
+      `${niche}人懂的3个瞬间（扎心版）`,
+      `大家做${niche}遇到过最离谱的事是什么？`,
+      `${niche}翻车经历分享（笑中带泪版）`,
+    ]},
+    {type:'🎯 案例分析',templates:[
+      `拆解一个${niche}成功案例：做对了什么`,
+      `复盘我的${niche}项目：从0到1的完整记录`,
+      `${niche}赛道TOP3账号分析报告`,
+    ]},
+    {type:'💡 资源推荐',templates:[
+      `${niche}必备的5个免费工具`,
+      `我的${niche}私藏书单/资源清单`,
+      `${niche}人本周值得关注的3件事`,
+    ]},
+  ]
+
+  let result = `📅 「${niche}」一周选题日历\n${'─'.repeat(40)}\n\n`
+  const shuffled = types.sort(() => Math.random() - 0.5)
+
+  days.forEach((day, i) => {
+    const t = shuffled[i]
+    result += `${day} | ${t.type}\n   📝 ${t.templates[Math.floor(Math.random()*t.templates.length)]}\n\n`
+  })
+
+  document.getElementById('calendar-result').textContent = result
+}
+
+// ============ 分享 ============
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    alert('✅ 链接已复制！分享给你的朋友们吧')
+  }).catch(() => {
+    prompt('复制这个链接分享:', window.location.href)
+  })
+}
+</script>
+</body>
+</html>
